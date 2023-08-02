@@ -1,5 +1,12 @@
 import { TreasureMap, numToPosition } from "./treasureMap";
 
+export function parseMapFromText(inputString: string): TreasureMap {
+    const numStrings: string[] = inputString
+        .split(/\W+/)
+        .filter((s) => s.trim().length > 0);
+    return makeTreasureMapFromNumbers(numStrings.map((s) => parseInt(s, 10)));
+}
+
 export function makeTreasureMapFromNumbers(numbers: number[]): TreasureMap {
     const gridOfNumbers: number[][] = makeGrid(numbers, 5);
     const gridOfPositions: TreasureMap = gridOfNumbers.map((row) =>
