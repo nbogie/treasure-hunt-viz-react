@@ -39,11 +39,13 @@ function App() {
     return (
         <main>
             <textarea
+                className="treasureMapText"
                 value={display(tmap).join("\n")}
                 cols={15}
                 rows={6}
                 readOnly
             ></textarea>
+
             <div className="treasureMap">
                 {tmap.flatMap((row, rowIx) =>
                     row.map((c, colIx) => (
