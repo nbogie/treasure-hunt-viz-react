@@ -1,0 +1,81 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.treasureMap {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    background: beige;
+    gap: 0.2rem;
+}
+main {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.cell {
+    border: gray 1px solid;
+    aspect-ratio: 1;
+    width: 4rem;
+    display: grid;
+    font-size: 1.3rem;
+    place-items: center;
+    position: relative;
+    transition: 600ms;
+}
+
+.cell.currentStep {
+    background: lightgreen;
+}
+
+.cell.nextStep {
+    outline: tomato 6px dotted;
+    color: gainsboro;
+}
+
+.cell.treasure {
+    background: gold;
+}
+.cell.visited {
+    opacity: 0.5;
+    background: gainsboro;
+}
+
+.cell .posAnnotation {
+    position: absolute;
+    right: 0.2rem;
+    bottom: 0.1rem;
+    z-index: 1;
+    font-size: 0.7rem;
+    color: gray;
+    aspect-ratio: 1;
+}
+.cell.nextStep .posAnnotation {
+    font-size: 1rem;
+}
+
+.pathText > .step {
+    margin: 0.2rem;
+}
+
+.pathText > .step.currentStep {
+    background: lightgreen;
+}
+
+.pathText > .step.nextStep {
+    background: orange;
+}
+
+.pathText > .step.treasure {
+    outline: gold 2px solid;
+}
+
+.pathText > .step.visited {
+    opacity: 0.5;
+    background: gainsboro;
+}
