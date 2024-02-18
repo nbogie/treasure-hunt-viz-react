@@ -1,4 +1,3 @@
-import { LayoutGroup } from "framer-motion";
 import { useMemo, useState } from "react";
 import {
     example1Grid,
@@ -69,35 +68,31 @@ function App() {
             ></textarea>
 
             <div className="treasureMap">
-                <LayoutGroup>
-                    {treasureMap.flatMap((row, rowIx) =>
-                        row.map((c, colIx) => {
-                            const position = { x: colIx, y: rowIx };
+                {treasureMap.flatMap((row, rowIx) =>
+                    row.map((c, colIx) => {
+                        const position = { x: colIx, y: rowIx };
 
-                            const layoutId = calcLayoutId(
-                                position,
-                                currentStepPos,
-                                nextStepPos
-                            );
+                        const layoutId = calcLayoutId(
+                            position,
+                            currentStepPos,
+                            nextStepPos
+                        );
 
-                            return (
-                                <Cell
-                                    key={
-                                        layoutId ? layoutId : colIx + "" + rowIx
-                                    }
-                                    position={position}
-                                    content={c}
-                                    {...{
-                                        nextStepPos,
-                                        currentStepPos,
-                                        treasurePos,
-                                        visitedPositions: path.slice(0, step),
-                                    }}
-                                />
-                            );
-                        })
-                    )}
-                </LayoutGroup>
+                        return (
+                            <Cell
+                                key={layoutId ? layoutId : colIx + "" + rowIx}
+                                position={position}
+                                content={c}
+                                {...{
+                                    nextStepPos,
+                                    currentStepPos,
+                                    treasurePos,
+                                    visitedPositions: path.slice(0, step),
+                                }}
+                            />
+                        );
+                    })
+                )}
             </div>
             {error && <div className="error">Error: {error}</div>}
             <div className="pathText">
