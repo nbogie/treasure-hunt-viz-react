@@ -1,3 +1,4 @@
+import { LayoutGroup } from "framer-motion";
 import { useMemo, useState } from "react";
 import {
     example1Grid,
@@ -11,6 +12,7 @@ import { Position, TreasureMap, positionToString } from "../core/treasureMap";
 import "./App.css";
 import { Cell } from "./Cell";
 import { calcClassesForPosition } from "./calcClassesForPosition";
+import { calcLayoutId } from "./layoutId";
 
 function App() {
     const [treasureMapText, setTreasureMapText] = useState(example1Grid.trim());
@@ -67,21 +69,35 @@ function App() {
             ></textarea>
 
             <div className="treasureMap">
-                {treasureMap.flatMap((row, rowIx) =>
-                    row.map((c, colIx) => (
-                        <Cell
-                            key={colIx + "" + rowIx}
-                            position={{ x: colIx, y: rowIx }}
-                            content={c}
-                            {...{
-                                nextStepPos,
+                <LayoutGroup>
+                    {treasureMap.flatMap((row, rowIx) =>
+                        row.map((c, colIx) => {
+                            const position = { x: colIx, y: rowIx };
+
+                            const layoutId = calcLayoutId(
+                                position,
                                 currentStepPos,
-                                treasurePos,
-                                visitedPositions: path.slice(0, step),
-                            }}
-                        />
-                    ))
-                )}
+                                nextStepPos
+                            );
+
+                            return (
+                                <Cell
+                                    key={
+                                        layoutId ? layoutId : colIx + "" + rowIx
+                                    }
+                                    position={position}
+                                    content={c}
+                                    {...{
+                                        nextStepPos,
+                                        currentStepPos,
+                                        treasurePos,
+                                        visitedPositions: path.slice(0, step),
+                                    }}
+                                />
+                            );
+                        })
+                    )}
+                </LayoutGroup>
             </div>
             {error && <div className="error">Error: {error}</div>}
             <div className="pathText">

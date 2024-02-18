@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { Position, positionToString } from "../core/treasureMap";
 import { calcClassesForPosition } from "./calcClassesForPosition";
+import { calcLayoutId } from "./layoutId";
 
 interface CellProps {
     position: Position;
@@ -23,13 +25,27 @@ export function Cell({
         treasurePos,
         visitedPositions,
     });
+
+    const layoutId = calcLayoutId(position, currentStepPos, nextStepPos);
     return (
-        <div className={"cell " + classes}>
+        <motion.div
+            className={"cell " + classes}
+            layout={layoutId !== undefined}
+            layoutId={layoutId}
+            transition={{
+                delay: { current: 0, next: 0.3, default: 0 }[
+                    layoutId ?? "default"
+                ],
+                duration: { current: 0.5, next: 0.9, default: 0 }[
+                    layoutId ?? "default"
+                ],
+            }}
+        >
             {positionToString(content)}
             <div className="posAnnotation">
                 {position.y + 1}
                 {position.x + 1}
             </div>
-        </div>
+        </motion.div>
     );
 }

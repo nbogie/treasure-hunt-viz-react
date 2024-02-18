@@ -33,7 +33,6 @@ main {
     font-size: 1.3rem;
     place-items: center;
     position: relative;
-    transition: 600ms;
 }
 
 .cell.currentStep {
@@ -49,7 +48,6 @@ main {
     background: gold;
 }
 .cell.visited {
-    opacity: 0.5;
     background: gainsboro;
 }
 
@@ -83,7 +81,6 @@ main {
 }
 
 .pathText > .step.visited {
-    opacity: 0.5;
     background: gainsboro;
 }
 
