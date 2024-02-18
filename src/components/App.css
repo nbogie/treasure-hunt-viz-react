@@ -36,12 +36,9 @@ main {
 }
 
 .cell.currentStep {
-    background: lightgreen;
 }
 
 .cell.nextStep {
-    outline: tomato 6px dotted;
-    color: gainsboro;
 }
 
 .cell.treasure {
@@ -88,4 +85,20 @@ main {
     background: pink;
     padding: 0.5rem;
     border-radius: 0.5rem;
+}
+
+.highlighter {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+}
+
+.highlighter.current {
+    background: lightgreen;
+    opacity: 0.5;
+}
+
+.highlighter.next {
+    outline: tomato 6px dotted;
 }

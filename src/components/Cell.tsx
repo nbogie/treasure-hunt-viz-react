@@ -26,12 +26,36 @@ export function Cell({
         visitedPositions,
     });
 
+    return (
+        <div className={"cell " + classes}>
+            {positionToString(content)}
+            <div className="posAnnotation">
+                {position.y + 1}
+                {position.x + 1}
+            </div>
+            <Highlighter {...{ position, currentStepPos, nextStepPos }} />
+        </div>
+    );
+}
+
+function Highlighter({
+    position,
+    currentStepPos,
+    nextStepPos,
+}: {
+    position: Position;
+    currentStepPos: Position | undefined;
+    nextStepPos: Position | undefined;
+}) {
     const layoutId = calcLayoutId(position, currentStepPos, nextStepPos);
+    if (!layoutId) {
+        return null;
+    }
     return (
         <motion.div
-            className={"cell " + classes}
-            layout={layoutId !== undefined}
+            layout={true}
             layoutId={layoutId}
+            className={"highlighter " + layoutId}
             transition={{
                 delay: { current: 0, next: 0.3, default: 0 }[
                     layoutId ?? "default"
@@ -40,12 +64,6 @@ export function Cell({
                     layoutId ?? "default"
                 ],
             }}
-        >
-            {positionToString(content)}
-            <div className="posAnnotation">
-                {position.y + 1}
-                {position.x + 1}
-            </div>
-        </motion.div>
+        ></motion.div>
     );
 }
